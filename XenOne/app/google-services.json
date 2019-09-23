@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "131469655947",
+    "firebase_url": "https://xenone-e3a82.firebaseio.com",
+    "project_id": "xenone-e3a82",
+    "storage_bucket": "xenone-e3a82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131469655947:android:461217ce602751f600398e",
+        "android_client_info": {
+          "package_name": "com.iot.xenone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "131469655947-nsn650dtig02f13cp73d8rb2qenf2b9k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.iot.xenone",
+            "certificate_hash": "385b1eda846203982f0e87c0bc4590d61e65e902"
+          }
+        },
+        {
+          "client_id": "131469655947-4qnqda8i358n8lfojcf3j98r2akmlfah.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVT26bri7RABzSl8oJXJEmdO1LGrSq_SA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "131469655947-4qnqda8i358n8lfojcf3j98r2akmlfah.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
