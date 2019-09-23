@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:noHistory="true">
 
     <LinearLayout
         android:layout_width="match_parent"
