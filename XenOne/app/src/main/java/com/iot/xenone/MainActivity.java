@@ -14,13 +14,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void changeToSignInActivity(View view){
+    public void changeToSignInActivity(View view) {
         Intent intent = new Intent(this, SignInActivity.class);
         startActivity(intent);
     }
 
-    public void changeToSignUpActivity(View view){
+    public void changeToSignUpActivity(View view) {
         Intent intent = new Intent(this, SignUpActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

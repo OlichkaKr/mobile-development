@@ -10,7 +10,7 @@ public class Validation {
     public static boolean validateEmail(TextInputLayout emailTextInputLayout) {
         String emailInput = emailTextInputLayout.getEditText().getText().toString().trim();
         if (emailInput.isEmpty()) {
-            emailTextInputLayout.setError("Field can't be empty");
+            emailTextInputLayout.setError("Field can not be empty");
             return false;
         } else if (!emailInput.matches(EMAIL_PATTERN)) {
             emailTextInputLayout.setError("Email is invalid");
@@ -24,7 +24,7 @@ public class Validation {
     public static boolean validateUsername(TextInputLayout usernameTextInputLayout) {
         String usernameInput = usernameTextInputLayout.getEditText().getText().toString().trim();
         if (usernameInput.isEmpty()) {
-            usernameTextInputLayout.setError("Field can't be empty");
+            usernameTextInputLayout.setError("Field can not be empty");
             return false;
         } else {
             usernameTextInputLayout.setError(null);
@@ -35,7 +35,7 @@ public class Validation {
     public static boolean validatePhone(TextInputLayout phoneTextInputLayout) {
         String phoneInput = phoneTextInputLayout.getEditText().getText().toString().trim();
         if (phoneInput.isEmpty()) {
-            phoneTextInputLayout.setError("Field can't be empty");
+            phoneTextInputLayout.setError("Field can not be empty");
             return false;
         } else if (!phoneInput.matches(PHONE_NUMBER_PATTERN)) {
             phoneTextInputLayout.setError("Phone number is invalid");
@@ -49,7 +49,7 @@ public class Validation {
     public static boolean validatePassword(TextInputLayout passwordTextInputLayout) {
         String passwordInput = passwordTextInputLayout.getEditText().getText().toString().trim();
         if (passwordInput.isEmpty()) {
-            passwordTextInputLayout.setError("Field can't be empty");
+            passwordTextInputLayout.setError("Field can not be empty");
             return false;
         } else if (passwordTextInputLayout.getEditText().getText().toString().length() < 8) {
             passwordTextInputLayout.setError("Minimum 8 characters");

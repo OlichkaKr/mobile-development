@@ -54,6 +54,11 @@ public class SignInActivity extends AppCompatActivity {
                 });
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public void changeSignInToWelcomeActivity(View view) {
         if (Validation.validateEmail(emailTextInputLayout) &&
                 Validation.validatePassword(passwordTextInputLayout)) {

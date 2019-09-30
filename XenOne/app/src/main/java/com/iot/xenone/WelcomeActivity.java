@@ -71,6 +71,11 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public void signOut(View view) {
         firebaseAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);

@@ -104,6 +104,11 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseRef.child(userId).setValue(user);
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
+
     public void changeSignUpToWelcomeActivity(View view) {
         if (Validation.validateEmail(emailTextInputLayout) &
                 Validation.validatePassword(passwordTextInputLayout) &
