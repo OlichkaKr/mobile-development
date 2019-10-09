@@ -16,11 +16,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void changeToSignInActivity(View view) {
         Intent intent = new Intent(this, SignInActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
     public void changeToSignUpActivity(View view) {
         Intent intent = new Intent(this, SignUpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

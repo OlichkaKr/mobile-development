@@ -43,28 +43,8 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onStart();
         final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         if (currentUser != null) {
-            firebaseRef.child("email").equalTo(currentUser.getEmail())
-                    .addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                    User user = dataSnapshot.getValue(User.class);
-                    TextView textView = findViewById(R.id.welcome_user);
-                    textView.setText(user.getUsername());
-                }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {}
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {}
-
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {}
-            });
+            TextView textView = findViewById(R.id.welcome_user);
+            textView.setText(currentUser.getDisplayName());
         } else {
             TextView textView = findViewById(R.id.welcome_user);
             textView.setText("Anonymus");
@@ -79,6 +59,7 @@ public class WelcomeActivity extends AppCompatActivity {
     public void signOut(View view) {
         firebaseAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

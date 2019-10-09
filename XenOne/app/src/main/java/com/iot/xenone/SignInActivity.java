@@ -42,10 +42,8 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = firebaseAuth.getCurrentUser();
                         } else {
-                            // If sign in fails, display a message to the user.
                             Toast.makeText(SignInActivity.this,
                                     getResources().getString(R.string.email_pass_error),
                                     Toast.LENGTH_SHORT).show();
@@ -66,6 +64,7 @@ public class SignInActivity extends AppCompatActivity {
                     Decorator.getInputValue(passwordTextInputLayout));
             if (firebaseAuth.getCurrentUser() != null) {
                 Intent intent = new Intent(this, WelcomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         }
@@ -73,6 +72,7 @@ public class SignInActivity extends AppCompatActivity {
 
     public void changeSignInToSignUpActivity(View view) {
         Intent intent = new Intent(this, SignUpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }
