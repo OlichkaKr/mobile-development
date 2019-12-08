@@ -46,17 +46,21 @@ public class SignUpActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseRef = FirebaseDatabase.getInstance().getReference("users");
     }
-
+    FirebaseUser user;
     private void signUp(final Map<String, String> values) {
+        if (firebaseAuth.getCurrentUser() != null){
+            firebaseAuth.signOut();
+        }
         firebaseAuth.createUserWithEmailAndPassword(values.get("email"), values.get("password"))
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            FirebaseUser user = firebaseAuth.getCurrentUser();
+                            user = firebaseAuth.getCurrentUser();
                             UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                                     .setDisplayName(values.get("username")).build();
                             user.updateProfile(profileUpdates);
+                            launchWelcomeActivity();
                         } else {
                             Toast.makeText(SignUpActivity.this,
                                     getResources().getString(R.string.already_used_email),
@@ -64,11 +68,6 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onBackPressed() {
-        moveTaskToBack(true);
     }
 
     public void changeSignUpToWelcomeActivity(View view) {
@@ -82,12 +81,14 @@ public class SignUpActivity extends AppCompatActivity {
                 Validation.validatePhone(phone) &
                 Validation.validateUsername(username)) {
             signUp(values);
+        }
+    }
 
-            if (firebaseAuth.getCurrentUser() != null) {
-                Intent intent = new Intent(this, WelcomeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-            }
+    public void launchWelcomeActivity(){
+        if (firebaseAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(this, WelcomeActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
     }
 

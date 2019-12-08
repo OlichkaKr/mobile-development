@@ -19,4 +19,8 @@
     <string name="already_used_phone_num">Sorry but such phone number already used</string>
     <string name="already_used_email">Sorry but such email already used</string>
     <string name="error_empty_field">Field can not be empty</string>
+    <string name="no_internet">No internet</string>
+    <string name="load_failed">Load failed</string>
+    <string name="api_url">https://akerbrback.azurewebsites.net/api/service/get/all</string>
+    <string name="image_view">image_view</string>
 </resources>

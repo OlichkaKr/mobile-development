@@ -1,65 +1,96 @@
 package com.iot.xenone;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.iot.xenone.extraclasses.User;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.iot.xenone.extraclasses.InfoAdapter;
+import com.iot.xenone.extraclasses.NetworkChangeReceiver;
+
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.JsonHttpResponseHandler;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import cz.msebera.android.httpclient.Header;
 
 public class WelcomeActivity extends AppCompatActivity {
 
-    private TextView emailTextView;
-    private FirebaseAuth firebaseAuth;
-    private DatabaseReference firebaseRef;
+    private ListView listView;
+    private ProgressBar progressBar;
+    private LinearLayout mainLayout;
+
+    private String URL = getString(R.string.api_url);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        emailTextView = findViewById(R.id.email_text_input);
+        listView = findViewById(R.id.list_view);
+        progressBar = findViewById(R.id.loading_spinner);
+        mainLayout = findViewById(R.id.mainLayout);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseRef = FirebaseDatabase.getInstance().getReference("users");
+        initOnRefresh();
+        registerNetwork();
+        requestData(URL);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        final FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        if (currentUser != null) {
-            TextView textView = findViewById(R.id.welcome_user);
-            textView.setText(currentUser.getDisplayName());
-        } else {
-            TextView textView = findViewById(R.id.welcome_user);
-            textView.setText("Anonymus");
-        }
+    private void requestData(String url) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        progressBar.setVisibility(View.INVISIBLE);
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers,
+                                  JSONObject response) {
+                Log.d("Akerbr", "JSON: " + response.toString());
+                try {
+                    HashMap all_data = new Gson().fromJson(response.toString(), HashMap.class);
+                    ArrayList<HashMap> item = new ArrayList<HashMap>(all_data.values());
+                    InfoAdapter adapter = new InfoAdapter(WelcomeActivity.this, item);
+                    listView.setAdapter(adapter);
+                } catch (Exception e) {
+                    Log.e("Akerbr", e.toString());
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable e,
+                                  JSONObject response) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Snackbar.make(mainLayout, R.string.load_failed, Snackbar.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void registerNetwork() {
+        IntentFilter filter = new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE");
+        NetworkChangeReceiver receiver = new NetworkChangeReceiver(mainLayout);
+        this.registerReceiver(receiver, filter);
+    }
+
+    public void initOnRefresh() {
+        SwipeRefreshLayout pullToRefresh = findViewById(R.id.pullToRefresh);
+        pullToRefresh.setOnRefreshListener(() -> {
+            requestData(URL);
+            pullToRefresh.setRefreshing(false);
+        });
     }
 
     @Override
     public void onBackPressed() {
         moveTaskToBack(true);
-    }
-
-    public void signOut(View view) {
-        firebaseAuth.signOut();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
     }
 }
