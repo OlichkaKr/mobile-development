@@ -46,7 +46,6 @@ public class WelcomeActivity extends AppCompatActivity {
         initOnRefresh();
         registerNetwork();
         requestData(URL);
-
     }
 
     private void requestData(String url) {
@@ -94,5 +93,4 @@ public class WelcomeActivity extends AppCompatActivity {
     public void onBackPressed() {
         moveTaskToBack(true);
     }
-
 }

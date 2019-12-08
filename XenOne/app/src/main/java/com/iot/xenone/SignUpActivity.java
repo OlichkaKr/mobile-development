@@ -70,7 +70,6 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-
     public void changeSignUpToWelcomeActivity(View view) {
         Map<String, String> values = new HashMap<>();
         values.put("email", Decorator.getInputValue(email));
@@ -82,7 +81,6 @@ public class SignUpActivity extends AppCompatActivity {
                 Validation.validatePhone(phone) &
                 Validation.validateUsername(username)) {
             signUp(values);
-
         }
     }
 
