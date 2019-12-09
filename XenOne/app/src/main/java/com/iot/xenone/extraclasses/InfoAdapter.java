@@ -1,6 +1,7 @@
 package com.iot.xenone.extraclasses;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import com.iot.xenone.ListItemDetailedActivity;
 import com.iot.xenone.R;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class InfoAdapter extends ArrayAdapter<HashMap> {
     private Context context;
     private List<HashMap> itemList;
 
-    public InfoAdapter(Context context, ArrayList<HashMap> list){
+    public InfoAdapter(Context context, ArrayList<HashMap> list) {
         super(context, 0, list);
         this.context = context;
         this.itemList = list;
@@ -40,7 +42,7 @@ public class InfoAdapter extends ArrayAdapter<HashMap> {
 
         HashMap currentItem = new HashMap(itemList.get(position));
         byte[] decodedString = Base64.decode(currentItem.get("image").toString(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0,decodedString.length);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
         ImageView imageView = listItem.findViewById(R.id.image);
         imageView.setImageBitmap(decodedByte);
 
@@ -55,7 +57,19 @@ public class InfoAdapter extends ArrayAdapter<HashMap> {
         TextView export = listItem.findViewById(R.id.export);
         String exportString = "Export: " + currentItem.get("export").toString();
         export.setText(exportString);
-
+        listItem.setOnClickListener(view -> putItemDetails(position));
         return listItem;
+    }
+
+    private void putItemDetails(int position){
+        Intent intent = new Intent(context, ListItemDetailedActivity.class);
+        HashMap currentItem = new HashMap(itemList.get(position));
+
+        intent.putExtra("cords", currentItem.get("cords").toString());
+        intent.putExtra("filling", currentItem.get("filling").toString());
+        intent.putExtra("export", currentItem.get("export").toString());
+        intent.putExtra("image", currentItem.get("image").toString());
+
+        context.startActivity(intent);
     }
 }

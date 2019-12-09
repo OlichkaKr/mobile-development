@@ -44,8 +44,12 @@ public class NetworkChangeReceiver extends BroadcastReceiver {
                             capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI));
         } else {
             NetworkInfo activeNetworkInfo = cm.getActiveNetworkInfo();
-            isOnline =  activeNetworkInfo != null && activeNetworkInfo.isConnected();
+            isOnline = activeNetworkInfo != null && activeNetworkInfo.isConnected();
         }
         return isOnline;
+    }
+
+    public interface OnNetworkChangeListener {
+        void onNetworkChange(final boolean isOnline);
     }
 }

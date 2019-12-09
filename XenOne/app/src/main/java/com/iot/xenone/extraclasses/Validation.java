@@ -1,5 +1,7 @@
 package com.iot.xenone.extraclasses;
 
+import android.widget.EditText;
+
 import com.google.android.material.textfield.TextInputLayout;
 
 public class Validation {
@@ -21,6 +23,20 @@ public class Validation {
         }
     }
 
+    public static boolean validateEmail(EditText emailEditText) {
+        String emailInput = emailEditText.getText().toString().trim();
+        if (emailInput.isEmpty()) {
+            emailEditText.setError("Field can not be empty");
+            return false;
+        } else if (!emailInput.matches(EMAIL_PATTERN)) {
+            emailEditText.setError("Email is invalid");
+            return false;
+        } else {
+            emailEditText.setError(null);
+            return true;
+        }
+    }
+
     public static boolean validateUsername(TextInputLayout usernameTextInputLayout) {
         String usernameInput = usernameTextInputLayout.getEditText().getText().toString().trim();
         if (usernameInput.isEmpty()) {
@@ -28,6 +44,17 @@ public class Validation {
             return false;
         } else {
             usernameTextInputLayout.setError(null);
+            return true;
+        }
+    }
+
+    public static boolean validateUsername(EditText usernameEditText) {
+        String usernameInput = usernameEditText.getText().toString().trim();
+        if (usernameInput.isEmpty()) {
+            usernameEditText.setError("Field can not be empty");
+            return false;
+        } else {
+            usernameEditText.setError(null);
             return true;
         }
     }
