@@ -1,8 +1,7 @@
 package com.iot.xenone;
 
-import android.content.Context;
+import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,10 +13,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 import com.iot.xenone.extraclasses.InfoAdapter;
@@ -37,7 +37,7 @@ public class ListFragment extends Fragment {
 
     private ListView listView;
     private ProgressBar progressBar;
-    private LinearLayout mainLayout;
+    private RelativeLayout mainLayout;
 
     private String URL;
 
@@ -54,7 +54,11 @@ public class ListFragment extends Fragment {
         listView = view.findViewById(R.id.list_view);
         progressBar = view.findViewById(R.id.loading_spinner);
         mainLayout = view.findViewById(R.id.mainLayout);
-
+        FloatingActionButton new_post = view.findViewById(R.id.new_post_button);
+        new_post.setOnClickListener(intent -> {
+            Intent in = new Intent(getContext(), PostActivity.class);
+            startActivity(in);
+        });
         initOnRefresh(view);
         registerNetwork();
         requestData(URL);

@@ -8,6 +8,8 @@ public class Validation {
 
     private static String EMAIL_PATTERN = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     private static String PHONE_NUMBER_PATTERN = "[+]380[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]";
+    private static String CORDS_PATTERN = "[0-9]+:[0-9]+";
+    private static String EXPORT_PATTERN = "[0-2][0-9]\\.[0-1][0-9]\\.[0-9][0-9][0-9][0-9]";
 
     public static boolean validateEmail(TextInputLayout emailTextInputLayout) {
         String emailInput = emailTextInputLayout.getEditText().getText().toString().trim();
@@ -83,6 +85,45 @@ public class Validation {
             return false;
         } else {
             passwordTextInputLayout.setError(null);
+            return true;
+        }
+    }
+
+    public static boolean validateCords(EditText cordsEditText){
+        String cordsInput = cordsEditText.getText().toString().trim();
+        if (cordsInput.isEmpty()){
+            cordsEditText.setError("Field can not be empty");
+            return false;
+        } else if (!cordsInput.matches(CORDS_PATTERN)) {
+            cordsEditText.setError("Enter cords like 0000:0000");
+            return false;
+        } else {
+            cordsEditText.setError(null);
+            return true;
+        }
+    }
+
+    public static boolean validateFilling(EditText cordsEditText){
+        String cordsInput = cordsEditText.getText().toString().trim();
+        if (cordsInput.isEmpty()){
+            cordsEditText.setError("Field can not be empty");
+            return false;
+        } else {
+            cordsEditText.setError(null);
+            return true;
+        }
+    }
+
+    public static boolean validateExport(EditText cordsEditText){
+        String cordsInput = cordsEditText.getText().toString().trim();
+        if (cordsInput.isEmpty()){
+            cordsEditText.setError("Field can not be empty");
+            return false;
+        } else if (!cordsInput.matches(EXPORT_PATTERN)) {
+            cordsEditText.setError("Enter a date");
+            return false;
+        } else {
+            cordsEditText.setError(null);
             return true;
         }
     }
