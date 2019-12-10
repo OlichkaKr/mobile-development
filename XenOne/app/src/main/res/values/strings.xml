@@ -22,6 +22,7 @@
     <string name="no_internet">No internet</string>
     <string name="load_failed">Load failed</string>
     <string name="api_url">https://akerbrback.azurewebsites.net/api/service/get/all</string>
+    <string name="api_url_post">https://akerbrback.azurewebsites.net/api/service/post/android</string>
     <string name="image_view">image_view</string>
     <string name="tab_2">tab#2</string>
     <string name="enter_new_email">Enter new email</string>
@@ -36,4 +37,10 @@
     <string name="name_success">Name updated</string>
     <string name="details">Akerbr\'s details</string>
     <string name="upload_progress">Upload in progress</string>
+    <string name="enter_new_cords">Enter new cords</string>
+    <string name="cords">Cords</string>
+    <string name="enter_new_filling">Enter new filling</string>
+    <string name="filling">Filling</string>
+    <string name="enter_new_export">Enter new export</string>
+    <string name="export">Export</string>
 </resources>

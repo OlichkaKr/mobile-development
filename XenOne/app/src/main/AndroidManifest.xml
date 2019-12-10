@@ -28,6 +28,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ListItemDetailedActivity" />
+        <activity android:name=".PostActivity" />
     </application>
 
 </manifest>

@@ -31,7 +31,6 @@ public class ListItemDetailedActivity extends AppCompatActivity {
         String itemDate = intent.getStringExtra("filling");
         String itemPlace = intent.getStringExtra("export");
         String imageName = intent.getStringExtra("image");
-
         displayItem(itemTitle, itemDate, itemPlace, imageName);
     }
 
